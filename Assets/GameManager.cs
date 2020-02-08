@@ -11,6 +11,15 @@ public class GameManager : MonoBehaviour
     public int xSpacing = 6;
     public float blockOffset = 1f;
     public GameObject blockMesh;
+    public List<Transform> newOrderedPieces;
+
+    public static GameManager _instance;
+
+    private void Awake()
+    {
+        _instance = this;
+    }
+
     void Start()
     {
         SpawnPieces();
@@ -18,14 +27,15 @@ public class GameManager : MonoBehaviour
 
     private void SpawnPieces()
     {
-        foreach (Piece item in Pieces._instance.usablePieces)
+        newOrderedPieces = new List<Transform>();
+        foreach (Piece item in Pieces._instance.piecesRemaining)
         {
-            FabricatePiece(item);
+            newOrderedPieces.Add(FabricatePiece(item).transform);
             currentXOffset++;
         }
     }
 
-    private void FabricatePiece(Piece p)
+    private GameObject FabricatePiece(Piece p)
     {
         List<Transform> validBlocks = new List<Transform>();
         GameObject o = new GameObject();
@@ -46,7 +56,7 @@ public class GameManager : MonoBehaviour
 
         if(validBlocks == null)
         {
-            return;
+            return o;
         }
 
         //find the center
@@ -67,7 +77,7 @@ public class GameManager : MonoBehaviour
             b.localPosition = offsetFromCenter;
         }
 
-        
+        return o;
     }
 
     // Update is called once per frame

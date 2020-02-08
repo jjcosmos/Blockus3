@@ -1,7 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using System.Linq;
+using System;
 public class Pieces : MonoBehaviour
 {
     public List<Piece> usablePieces;
@@ -13,6 +14,7 @@ public class Pieces : MonoBehaviour
     {
         _instance = this;
         MakePieceList();
+        //piecesRemaining = piecesRemaining.OrderBy(a => Guid.NewGuid()).ToList();
 
     }
 
@@ -243,7 +245,7 @@ public class Pieces : MonoBehaviour
         usablePieces.Add(p19);
         usablePieces.Add(p20);
 
-        piecesRemaining = usablePieces;
+        piecesRemaining  = usablePieces.OrderBy(x => UnityEngine.Random.value).ToList();
     }
 
     private void Start()
