@@ -14,10 +14,12 @@ public class GameManager : MonoBehaviour
     public List<Transform> newOrderedPieces;
 
     public static GameManager _instance;
+    public bool initialized;
 
     private void Awake()
     {
         _instance = this;
+        
     }
 
     void Start()
@@ -54,8 +56,17 @@ public class GameManager : MonoBehaviour
             }
         }
 
+
+
+        //add animator
+        Animator anim =  o.AddComponent<Animator>();
+        anim.runtimeAnimatorController = Resources.Load("Animation/Capsule") as RuntimeAnimatorController;
+
+
+
         if(validBlocks == null)
         {
+            initialized = true;
             return o;
         }
 
@@ -76,7 +87,7 @@ public class GameManager : MonoBehaviour
             Vector3 offsetFromCenter = b.localPosition - center;
             b.localPosition = offsetFromCenter;
         }
-
+        initialized = true;
         return o;
     }
 

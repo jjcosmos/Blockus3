@@ -341,8 +341,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 00003ee93725c184ab164fcc98c1f1f2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  previousPiece: {fileID: 0}
   currentPiece: {fileID: 0}
   focusIndex: 0
+  duration: 1
 --- !u!1 &2083522520
 GameObject:
   m_ObjectHideFlags: 0
@@ -378,6 +380,7 @@ MonoBehaviour:
   blockMesh: {fileID: 9086625763426942335, guid: 5e8ce19d2bfddeb44901f057ed87b0c6,
     type: 3}
   newOrderedPieces: []
+  initialized: 0
 --- !u!114 &2083522522
 MonoBehaviour:
   m_ObjectHideFlags: 0
