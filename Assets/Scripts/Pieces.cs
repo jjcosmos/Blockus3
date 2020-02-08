@@ -5,11 +5,35 @@ using UnityEngine;
 public class Pieces : MonoBehaviour
 {
     public List<Piece> usablePieces;
+    public List<Piece> piecesRemaining;
+    public static Pieces _instance;
 
-    private void Start()
+
+    private void Awake()
     {
+        _instance = this;
+        MakePieceList();
+
+    }
+
+    public Piece GetByID(int idToFind)
+    {
+        foreach (Piece p in usablePieces)
+        {
+            if(p.pieceID == idToFind)
+            {
+                return p;
+            }
+        }
+        return null;
+    }
+
+    private void MakePieceList()
+    {
+        usablePieces = new List<Piece>();
+
         //1x1
-        Piece p0 = new Piece(0, new int[5, 5]{ 
+        Piece p0 = new Piece(0, new int[5, 5]{
             { 0, 0, 0, 0, 0 },
             { 0, 0, 0, 0, 0 },
             { 0, 0, 1, 0, 0 },
@@ -218,6 +242,13 @@ public class Pieces : MonoBehaviour
         usablePieces.Add(p18);
         usablePieces.Add(p19);
         usablePieces.Add(p20);
+
+        piecesRemaining = usablePieces;
+    }
+
+    private void Start()
+    {
+        
 
     }
 
