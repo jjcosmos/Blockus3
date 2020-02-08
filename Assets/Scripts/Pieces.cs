@@ -8,6 +8,7 @@ public class Pieces : MonoBehaviour
     public List<Piece> usablePieces;
     public List<Piece> piecesRemaining;
     public static Pieces _instance;
+    private List<Piece> BlackList;
 
 
     private void Awake()
@@ -33,6 +34,7 @@ public class Pieces : MonoBehaviour
     private void MakePieceList()
     {
         usablePieces = new List<Piece>();
+        BlackList = new List<Piece>();
 
         //1x1
         Piece p0 = new Piece(0, new int[5, 5]{
@@ -245,12 +247,29 @@ public class Pieces : MonoBehaviour
         usablePieces.Add(p19);
         usablePieces.Add(p20);
 
+        BlackList.Add(p16);
+
         piecesRemaining  = usablePieces.OrderBy(x => UnityEngine.Random.value).ToList();
+
+        while (IsInBlacklist(piecesRemaining[0]))
+        {
+            piecesRemaining = usablePieces.OrderBy(x => UnityEngine.Random.value).ToList();
+        }
+        
+        
     }
 
-    private void Start()
+
+    private bool IsInBlacklist( Piece p)
     {
-        
+        foreach (Piece piece in BlackList)
+        {
+            if(piece.pieceID == p.pieceID)
+            {
+                return true;
+            }
+        }
+        return false;
 
     }
 
