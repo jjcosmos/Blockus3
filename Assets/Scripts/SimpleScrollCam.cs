@@ -11,6 +11,8 @@ public class SimpleScrollCam : MonoBehaviour
     public int focusIndex;
     public float duration;
 
+    private AudioSource source;
+    private AudioClip clip;
     private bool selfInitialized;
     [SerializeField] TextMeshProUGUI player1button;
     [SerializeField] TextMeshProUGUI player2button;
@@ -18,13 +20,15 @@ public class SimpleScrollCam : MonoBehaviour
     float startTime;
     void Start()
     {
-        
+        source = GetComponent<AudioSource>();
+        clip = Resources.Load("Sfx/pop") as AudioClip;
     }
 
     public void GoNext()
     {
         if (selfInitialized)
         {
+            source.PlayOneShot(clip);
             focusIndex++;
             if (focusIndex < GameManager._instance.newOrderedPieces.Count)
             {
