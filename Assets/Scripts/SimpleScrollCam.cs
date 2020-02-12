@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using TMPro;
+using UnityEngine.Events;
+
 public class SimpleScrollCam : MonoBehaviour
 {
     // Start is called before the first frame update
@@ -18,18 +20,44 @@ public class SimpleScrollCam : MonoBehaviour
     [SerializeField] TextMeshProUGUI player2button;
 
     float startTime;
+    public UnityEvent OnCameraMove;
+    public UnityEvent OnBegin;
+
+    private bool started;
     void Start()
     {
+        OnBegin = new UnityEvent();
+        OnCameraMove = new UnityEvent();
         source = GetComponent<AudioSource>();
         clip = Resources.Load("Sfx/pop") as AudioClip;
+
+        if (GameObject.FindObjectOfType<Timer>())
+        {
+            OnCameraMove.AddListener(GameObject.FindObjectOfType<Timer>().ResetTimer);
+            OnBegin.AddListener(GameObject.FindObjectOfType<Timer>().BeginCountdown);
+        }
+        
     }
 
     public void GoNext()
     {
-        if (selfInitialized)
+        
+
+        if(selfInitialized && !started && SceneManager.GetActiveScene().buildIndex == 2 && focusIndex < GameManager._instance.newOrderedPieces.Count)
         {
-            source.PlayOneShot(clip);
+            OnBegin.Invoke();
+            started = true;
+            
+        }
+        
+
+        else if (selfInitialized)
+        {
+            
             focusIndex++;
+            
+            source.PlayOneShot(clip);
+            
             if (focusIndex < GameManager._instance.newOrderedPieces.Count)
             {
                 startTime = Time.time;
@@ -43,12 +71,14 @@ public class SimpleScrollCam : MonoBehaviour
                     player2button.text = "Finish";
                 }
 
+                
             }
             else
             {
                 focusIndex--;
                 SceneManager.LoadScene(0);
             }
+            OnCameraMove.Invoke();
         }
     }
 

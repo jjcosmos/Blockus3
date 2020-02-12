@@ -11,4 +11,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/StandardRound.unity
     guid: 136155caa75a30e4990c7f0b37a89109
+  - enabled: 1
+    path: Assets/Scenes/TimedRound.unity
+    guid: 6757ac07eea64d34594aac4e8fb9d9a7
   m_configObjects: {}
