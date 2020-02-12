@@ -10,7 +10,7 @@ public class HueSetter : MonoBehaviour
         
         List<Color> colors = new List<Color>{ Color.red, Color.yellow, Color.green, Color.blue };
         Color c = colors[Random.Range(0,4)];
-        Debug.Log(c.ToString());
+
         var block = new MaterialPropertyBlock();
         block.SetColor("_albedo", c);
         block.SetColor("_glow", c);
