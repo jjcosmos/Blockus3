@@ -13,6 +13,9 @@ public class ButtonManager : MonoBehaviour
     private bool showingSettings;
     void Start()
     {
+        if (Application.isMobilePlatform)
+            QualitySettings.vSyncCount = 0;
+        //Application.targetFrameRate = 30;
         audioSource = GetComponent<AudioSource>();
         clip = Resources.Load("Sfx/Click_sound") as AudioClip;
         settingsWindow.gameObject.SetActive(false);
@@ -28,7 +31,7 @@ public class ButtonManager : MonoBehaviour
 
     private IEnumerator DelayedLoad(int scene)
     {
-        yield return new WaitForSeconds(.5f);
+        yield return new WaitForSeconds(.2f);
         SceneManager.LoadScene(scene);
     }
 

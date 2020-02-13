@@ -27,7 +27,15 @@ public class Timer : MonoBehaviour
         //clip = Resources.Load("Sfx/tick") as AudioClip;
         source = GetComponent<AudioSource>();
         Player1Continue.text = Player2Continue.text = "START";
-        MaxTime = PlayerPrefs.GetFloat("Max Time");
+        if(PlayerPrefs.HasKey("Max Time"))
+        {
+            MaxTime = PlayerPrefs.GetFloat("Max Time");
+        }
+        else
+        {
+            MaxTime = 10f;
+        }
+        CurrentTimeLeft = MaxTime;
     }
 
     void Start()
@@ -59,7 +67,9 @@ public class Timer : MonoBehaviour
 
         if(CurrentTimeLeft <= 0)
         {
+            CurrentTimeLeft = MaxTime;
             onTimeOut.Invoke();
+            Debug.Log("out of time");
         }
     }
 
