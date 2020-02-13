@@ -73,16 +73,11 @@ public class Timer : MonoBehaviour
         }
     }
 
-    public IEnumerator PlayTickNoise()
+    public void PlayTickNoise()
     {
-        //Debug.LogError("START");
-        source.Play();
-        //Debug.LogError("DONE");
-        while (true)
-        { 
-            yield return new WaitForSeconds(1f);
-            source.PlayOneShot(clip);
-        }
+        
+        source.PlayOneShot(clip);
+        
     }
 
 
@@ -100,6 +95,9 @@ public class Timer : MonoBehaviour
         StopAllCoroutines();
         CurrentTimeLeft = MaxTime;
         
-        StartCoroutine(PlayTickNoise());
+        //StartCoroutine(PlayTickNoise());
+        CancelInvoke();
+        InvokeRepeating("PlayTickNoise", 0, 1f);
+
     }
 }
