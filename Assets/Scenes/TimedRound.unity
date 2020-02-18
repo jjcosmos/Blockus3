@@ -705,6 +705,12 @@ PrefabInstance:
       objectReference: {fileID: 294047707}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8303a111da6304c4e90b088213b3ff3d, type: 3}
+--- !u!95 &5603697306612975364 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 2119366141146938576, guid: 8303a111da6304c4e90b088213b3ff3d,
+    type: 3}
+  m_PrefabInstance: {fileID: 5603697306612975363}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &6366611285506500163
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -727,6 +733,11 @@ PrefabInstance:
       propertyPath: player2button
       value: 
       objectReference: {fileID: 1577632437}
+    - target: {fileID: 6366611285213014424, guid: 46dbd2b204ff3f642bc2325d0e9644a1,
+        type: 3}
+      propertyPath: anim
+      value: 
+      objectReference: {fileID: 5603697306612975364}
     - target: {fileID: 6366611285213014425, guid: 46dbd2b204ff3f642bc2325d0e9644a1,
         type: 3}
       propertyPath: m_RenderPostProcessing

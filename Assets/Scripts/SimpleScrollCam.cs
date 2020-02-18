@@ -23,6 +23,8 @@ public class SimpleScrollCam : MonoBehaviour
     public UnityEvent OnCameraMove;
     public UnityEvent OnBegin;
 
+    [SerializeField] Animator anim;
+    [SerializeField] ParticleSystem particles;
     private bool started;
     void Start()
     {
@@ -70,16 +72,25 @@ public class SimpleScrollCam : MonoBehaviour
                     player1button.text = "Finish";
                     player2button.text = "Finish";
                 }
-
-                
+                else
+                    OnCameraMove.Invoke();
             }
             else
             {
                 focusIndex--;
-                SceneManager.LoadScene(0);
+                anim.Play("UI SlideIn");
+                particles.Play();
+                //delay
+                StartCoroutine(LoadDelay());
             }
-            OnCameraMove.Invoke();
+            //
         }
+    }
+
+    IEnumerator LoadDelay()
+    {
+        yield return new WaitForSeconds(3f);
+        SceneManager.LoadScene(0);
     }
 
     // Update is called once per frame
