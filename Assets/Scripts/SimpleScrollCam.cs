@@ -11,6 +11,8 @@ public class SimpleScrollCam : MonoBehaviour
     public Vector3 previousPosition;
     public Transform currentPiece;
     public int focusIndex;
+    public int playerIndex;
+    
     public float duration;
 
     private AudioSource source;
@@ -26,8 +28,12 @@ public class SimpleScrollCam : MonoBehaviour
     [SerializeField] Animator anim;
     [SerializeField] ParticleSystem particles;
     private bool started;
+
+    
+
     void Start()
     {
+        playerIndex = 1;
         OnBegin = new UnityEvent();
         OnCameraMove = new UnityEvent();
         source = GetComponent<AudioSource>();
@@ -38,7 +44,9 @@ public class SimpleScrollCam : MonoBehaviour
             OnCameraMove.AddListener(GameObject.FindObjectOfType<Timer>().ResetTimer);
             OnBegin.AddListener(GameObject.FindObjectOfType<Timer>().BeginCountdown);
         }
-        
+        Debug.Log(GameManager._instance.playerParents.Count);
+        GameManager._instance.ToggleVisible(GameManager._instance.playerParents[playerIndex-1]);
+
     }
 
     public void GoNext()
@@ -55,8 +63,14 @@ public class SimpleScrollCam : MonoBehaviour
 
         else if (selfInitialized)
         {
-            
-            focusIndex++;
+            if (IncrementPlayerIndex()) { //checks if looping back to player 1
+                focusIndex++;
+            }
+
+            if (!GameManager.isSymmetric)
+            {
+                GameManager._instance.ToggleVisible(GameManager._instance.playerParents[playerIndex - 1]);
+            }
             
             source.PlayOneShot(clip);
             
@@ -84,6 +98,20 @@ public class SimpleScrollCam : MonoBehaviour
                 StartCoroutine(LoadDelay());
             }
             //
+        }
+    }
+
+    private bool IncrementPlayerIndex()
+    {
+        if(playerIndex < GameManager.playerCount && !GameManager.isSymmetric)
+        {
+            playerIndex++;
+            return false;
+        }
+        else
+        {
+            playerIndex = 1;
+            return true;
         }
     }
 

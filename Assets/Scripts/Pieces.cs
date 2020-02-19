@@ -5,10 +5,10 @@ using System.Linq;
 using System;
 public class Pieces : MonoBehaviour
 {
-    public List<Piece> usablePieces;
+    public static List<Piece> usablePieces;
     public List<Piece> piecesRemaining;
     public static Pieces _instance;
-    private List<Piece> BlackList;
+    public static List<Piece> BlackList;
 
 
     private void Awake()
@@ -224,6 +224,7 @@ public class Pieces : MonoBehaviour
             { 0, 0, 1, 0, 0 },
             { 0, 0, 1, 0, 0 }
         });
+        usablePieces.Clear();
 
         usablePieces.Add(p0);
         usablePieces.Add(p1);
@@ -247,6 +248,7 @@ public class Pieces : MonoBehaviour
         usablePieces.Add(p19);
         usablePieces.Add(p20);
 
+        BlackList.Clear();
         BlackList.Add(p16);
 
         piecesRemaining  = usablePieces.OrderBy(x => UnityEngine.Random.value).ToList();
@@ -260,7 +262,20 @@ public class Pieces : MonoBehaviour
     }
 
 
-    private bool IsInBlacklist( Piece p)
+    public static List<Piece> GetRandomizedList()//with blacklist applied
+    {
+        List<Piece> returnPieces = new List<Piece>();
+        List<Piece> currentPieces = usablePieces;
+        returnPieces = currentPieces.OrderBy(x => UnityEngine.Random.value).ToList();
+        while (IsInBlacklist(currentPieces[0]))
+        {
+            returnPieces = currentPieces.OrderBy(x => UnityEngine.Random.value).ToList();
+        }
+        Debug.Log(returnPieces);
+        return returnPieces;
+    }
+
+    private static bool IsInBlacklist( Piece p)
     {
         foreach (Piece piece in BlackList)
         {
