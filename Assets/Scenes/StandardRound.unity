@@ -445,7 +445,15 @@ MonoBehaviour:
   blockMesh: {fileID: 9086625763426942335, guid: 5e8ce19d2bfddeb44901f057ed87b0c6,
     type: 3}
   newOrderedPieces: []
+  newOrderedPieces2: []
+  newOrderedPieces3: []
+  newOrderedPieces4: []
   initialized: 0
+  p1PieceParent: {fileID: 0}
+  p2PieceParent: {fileID: 0}
+  p3PieceParent: {fileID: 0}
+  p4PieceParent: {fileID: 0}
+  playerParents: []
 --- !u!114 &2083522522
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -458,7 +466,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b86f44eef1064de459ad2d25584bc24b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  usablePieces: []
   piecesRemaining: []
 --- !u!4 &2083522523
 Transform:
@@ -630,6 +637,11 @@ PrefabInstance:
       propertyPath: anim
       value: 
       objectReference: {fileID: 1215990340}
+    - target: {fileID: 6366611285213014425, guid: 46dbd2b204ff3f642bc2325d0e9644a1,
+        type: 3}
+      propertyPath: m_RenderPostProcessing
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6366611285213014426, guid: 46dbd2b204ff3f642bc2325d0e9644a1,
         type: 3}
       propertyPath: m_LocalPosition.x

@@ -8,7 +8,7 @@ public class HueSetter : MonoBehaviour
     void Start()
     {
         
-        List<Color> colors = new List<Color>{ Color.red, Color.yellow, Color.green, Color.blue };
+        List<Color> colors = new List<Color>{ Color.red, Color.blue, Color.green, Color.yellow };
         Color c = colors[1];
         if (GameManager.isSymmetric)
         {
