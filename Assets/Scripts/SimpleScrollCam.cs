@@ -28,7 +28,7 @@ public class SimpleScrollCam : MonoBehaviour
     [SerializeField] Animator anim;
     [SerializeField] ParticleSystem particles;
     private bool started;
-
+    bool ending;
     
 
     void Start()
@@ -61,7 +61,7 @@ public class SimpleScrollCam : MonoBehaviour
         }
         
 
-        else if (selfInitialized)
+        else if (selfInitialized && !ending )
         {
             if (IncrementPlayerIndex()) { //checks if looping back to player 1
                 focusIndex++;
@@ -96,6 +96,7 @@ public class SimpleScrollCam : MonoBehaviour
                 particles.Play();
                 //delay
                 StartCoroutine(LoadDelay());
+                ending = true;
             }
             //
         }
