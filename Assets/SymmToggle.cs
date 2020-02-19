@@ -5,6 +5,8 @@ using UnityEngine;
 public class SymmToggle : MonoBehaviour
 {
     // Start is called before the first frame update
+    public AudioSource source;
+    public AudioClip clip;
     bool isSymmetric;
     void Start()
     {
@@ -13,6 +15,7 @@ public class SymmToggle : MonoBehaviour
 
     public void ToggleSymmetric()
     {
+        source.PlayOneShot(clip);
         isSymmetric = !isSymmetric;
         int testInt = isSymmetric ? 1 : 0;
         PlayerPrefs.SetInt("isSymmetric",testInt);
